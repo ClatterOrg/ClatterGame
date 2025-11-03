@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clatter</title>
+    <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+            background: #121315;
+            font-family: sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Unity header */
+        #unity-header {
+            width: 100%;
+            height: 700px;
+            position: relative;
+            z-index: 5;
+        }
+        #unity-canvas {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            display: block;
+            z-index: 5;
+            pointer-events: auto;
+        }
+
+        /* Background area */
+        #background-1 {
+            position: relative;
+            z-index: 1;
+            background-image: url('assets/images/BackgroundDieGrid.png');
+            background-size: cover;
+            background-position: center center;
+            height: 660px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            text-align: center;
+            margin-top: -700px;
+            padding-top: 250px;
+        }
+
+        /* Header text */
+        #background-1 .overlay-header h2 {
+            margin: 10px 0 20px 0;
+            font-size: 2rem;
+        }
+        #background-1 .overlay-header p {
+            margin: 10px 0 20px 0;
+            font-size: 1.2rem;
+        }
+
+        .top-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 300px; /* adjust thickness of gradient */
+            background: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+            pointer-events: none; /* allows clicks through */
+            z-index: 2; /* below Unity canvas z-index 5, above background z-index 1 */
+        }
+
+        /* Carousel container */
+        .screenshot-carousel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            flex: 1 1 auto;
+            padding-bottom: 25px;
+        }
+
+        /* Visible slide wrapper */
+        .screenshot-slide-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Clickable areas */
+        .click-left, .click-right {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        .click-left { left: 0; }
+        .click-right { right: 0; }
+
+        /* Individual slide */
+        .screenshot-slide img {
+            display: block;
+            height: 500px;
+            width: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Pagination dots */
+        .carousel-dots {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .carousel-dots .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+        }
+        .carousel-dots .dot.active {
+            background: white;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Unity header -->
+<div id="unity-header">
+    <canvas id="unity-canvas"></canvas>
+</div>
+
+<!-- Background area -->
+<section id="background-1">
+    <!-- Gradient overlay at top -->
+    <div class="top-gradient"></div>
+
+    <div class="overlay-header">
+        <h2>Clatter Gameplay Preview</h2>
+        <p>See how dice interact in the game!</p>
+    </div>
+
+    <!-- Screenshot carousel -->
+    <div class="screenshot-carousel">
+        <div class="screenshot-slide-container">
+            <!-- Clickable halves -->
+            <div class="click-left"></div>
+            <div class="click-right"></div>
+
+            <div class="screenshot-row">
+                <div class="screenshot-slide"><img src="assets/images/screenshot 1.png" alt="Gameplay screenshot 1"></div>
+                <div class="screenshot-slide"><img src="assets/images/screenshot 2.png" alt="Gameplay screenshot 2"></div>
+                <div class="screenshot-slide"><img src="assets/images/screenshot 3.png" alt="Gameplay screenshot 3"></div>
+                <div class="screenshot-slide"><img src="assets/images/screenshot 4.png" alt="Gameplay screenshot 4"></div>
+                <div class="screenshot-slide"><img src="assets/images/screenshot 5.png" alt="Gameplay screenshot 5"></div>
+            </div>
+        </div>
+
+        <!-- Pagination dots -->
+        <div class="carousel-dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Unity Loader -->
+<script src="build/Web Build 1.loader.js"></script>
+<script>
+    const canvas = document.querySelector("#unity-canvas");
+    createUnityInstance(canvas, {
+        dataUrl: "build/Web Build 1.data.unityweb",
+        frameworkUrl: "build/Web Build 1.framework.js.unityweb",
+        codeUrl: "build/Web Build 1.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "YourCompany",
+        productName: "Clatter",
+        productVersion: "1.0",
+        backgroundColor: { r:0,g:0,b:0,a:0 },
+        webGLContextAttributes: { alpha: true, preserveDrawingBuffer: false }
+    }).then(unityInstance => { console.log("Unity WebGL loaded!"); })
+        .catch(err => { console.error(err); });
+</script>
+
+<!-- Carousel JS -->
+<script>
+    const slides = document.querySelectorAll('.screenshot-slide');
+    const dots = document.querySelectorAll('.dot');
+    const clickLeft = document.querySelector('.click-left');
+    const clickRight = document.querySelector('.click-right');
+    let currentIndex = 0;
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.style.display = (i === index) ? 'block' : 'none';
+        });
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+    }
+
+    // Initialize
+    showSlide(currentIndex);
+
+    // Clickable halves
+    clickLeft.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        showSlide(currentIndex);
+    });
+    clickRight.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        showSlide(currentIndex);
+    });
+
+    // Pagination dots
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+            currentIndex = i;
+            showSlide(currentIndex);
+        });
+    });
+
+    // Enable scrolling through Unity canvas
+    canvas.addEventListener('wheel', (e) => {
+        window.scrollBy({ top: e.deltaY, behavior: 'auto' });
+    });
+</script>
+
+</body>
+</html>
