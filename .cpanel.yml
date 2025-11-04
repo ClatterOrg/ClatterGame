@@ -1,3 +1,4 @@
+---
 deployment:
   tasks:
     - export: /home/clatthfr/public_html
