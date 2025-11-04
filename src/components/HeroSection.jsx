@@ -21,7 +21,7 @@ const HeroSection = () => {
       {/* Background Image */}
       <Box
         component="img"
-        src="/assets/images/BackgroundDieGrid.png"
+        src={`${import.meta.env.BASE_URL}assets/images/BackgroundDieGrid.png`}
         alt="Background"
         sx={{
           position: 'absolute',

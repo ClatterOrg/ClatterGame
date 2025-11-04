@@ -4,12 +4,13 @@ import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion'
 import { Close } from '@mui/icons-material'
 
+const baseUrl = import.meta.env.BASE_URL
 const screenshots = [
-  '/assets/images/screenshot 1.png',
-  '/assets/images/screenshot 2.png',
-  '/assets/images/screenshot 3.png',
-  '/assets/images/screenshot 4.png',
-  '/assets/images/screenshot 5.png',
+  `${baseUrl}assets/images/screenshot 1.png`,
+  `${baseUrl}assets/images/screenshot 2.png`,
+  `${baseUrl}assets/images/screenshot 3.png`,
+  `${baseUrl}assets/images/screenshot 4.png`,
+  `${baseUrl}assets/images/screenshot 5.png`,
 ]
 
 const ScreenshotGallery = () => {

@@ -13,7 +13,8 @@ const useUnity = (canvasRef) => {
 
     // Load Unity loader script
     const script = document.createElement('script')
-    script.src = '/build/Web Build 1.loader.js'
+    const baseUrl = import.meta.env.BASE_URL
+    script.src = `${baseUrl}build/Web Build 1.loader.js`
     script.async = true
 
     script.onload = () => {
@@ -26,9 +27,9 @@ const useUnity = (canvasRef) => {
 
         // Create Unity instance
         window.createUnityInstance(canvas, {
-          dataUrl: '/build/Web Build 1.data.unityweb',
-          frameworkUrl: '/build/Web Build 1.framework.js.unityweb',
-          codeUrl: '/build/Web Build 1.wasm.unityweb',
+          dataUrl: `${baseUrl}build/Web Build 1.data.unityweb`,
+          frameworkUrl: `${baseUrl}build/Web Build 1.framework.js.unityweb`,
+          codeUrl: `${baseUrl}build/Web Build 1.wasm.unityweb`,
           streamingAssetsUrl: 'StreamingAssets',
           companyName: 'YourCompany',
           productName: 'Clatter',

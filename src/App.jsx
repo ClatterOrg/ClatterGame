@@ -66,14 +66,14 @@ function App() {
           content="Master the art of dice manipulation and strategic planning in Clatter."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="/assets/images/screenshot 1.png" />
+        <meta property="og:image" content={`${import.meta.env.BASE_URL}assets/images/screenshot 1.png`} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Clatter - Innovative Dice Strategy Game" />
         <meta
           name="twitter:description"
           content="Master the art of dice manipulation and strategic planning in Clatter."
         />
-        <meta name="twitter:image" content="/assets/images/screenshot 1.png" />
+        <meta name="twitter:image" content={`${import.meta.env.BASE_URL}assets/images/screenshot 1.png`} />
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
