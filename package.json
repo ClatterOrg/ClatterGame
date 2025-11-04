@@ -1,0 +1,39 @@
+{
+  "name": "clattersite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "preview:gh-pages": "vite preview --base /ClatterGame/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ClatterOrg/ClatterGame.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ClatterOrg/ClatterGame/issues"
+  },
+  "homepage": "https://github.com/ClatterOrg/ClatterGame#readme",
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.4",
+    "@mui/material": "^7.3.4",
+    "@vitejs/plugin-react": "^5.1.0",
+    "framer-motion": "^12.23.24",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-ga4": "^2.1.0",
+    "react-helmet-async": "^2.0.5",
+    "react-intersection-observer": "^10.0.0",
+    "react-player": "^3.3.3",
+    "vite": "^7.1.12"
+  }
+}

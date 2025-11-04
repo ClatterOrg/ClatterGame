@@ -1,0 +1,136 @@
+import { useState } from 'react'
+import { Box, Container, Typography, ImageList, ImageListItem, Modal, IconButton } from '@mui/material'
+import { useInView } from 'react-intersection-observer'
+import { motion } from 'framer-motion'
+import { Close } from '@mui/icons-material'
+
+const screenshots = [
+  '/assets/images/screenshot 1.png',
+  '/assets/images/screenshot 2.png',
+  '/assets/images/screenshot 3.png',
+  '/assets/images/screenshot 4.png',
+  '/assets/images/screenshot 5.png',
+]
+
+const ScreenshotGallery = () => {
+  const [selectedImage, setSelectedImage] = useState(null)
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  })
+
+  const handleOpen = (image) => {
+    setSelectedImage(image)
+  }
+
+  const handleClose = () => {
+    setSelectedImage(null)
+  }
+
+  return (
+    <Box
+      ref={ref}
+      component="section"
+      sx={{
+        py: { xs: 8, md: 12 },
+        bgcolor: 'background.paper',
+      }}
+    >
+      <Container maxWidth="lg">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+        >
+          <Typography
+            variant="h2"
+            component="h2"
+            gutterBottom
+            sx={{ textAlign: 'center', mb: 6 }}
+          >
+            Screenshot Gallery
+          </Typography>
+        </motion.div>
+
+        <ImageList variant="masonry" cols={3} gap={8}>
+          {screenshots.map((screenshot, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+            >
+              <ImageListItem>
+                <Box
+                  component="img"
+                  src={screenshot}
+                  alt={`Gameplay screenshot ${index + 1}`}
+                  loading="lazy"
+                  onClick={() => handleOpen(screenshot)}
+                  sx={{
+                    width: '100%',
+                    height: 'auto',
+                    cursor: 'pointer',
+                    borderRadius: 2,
+                    transition: 'transform 0.3s',
+                    '&:hover': {
+                      transform: 'scale(1.05)',
+                    },
+                  }}
+                />
+              </ImageListItem>
+            </motion.div>
+          ))}
+        </ImageList>
+
+        <Modal
+          open={!!selectedImage}
+          onClose={handleClose}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            p: 2,
+          }}
+        >
+          <Box
+            sx={{
+              position: 'relative',
+              maxWidth: '90vw',
+              maxHeight: '90vh',
+            }}
+          >
+            <IconButton
+              onClick={handleClose}
+              sx={{
+                position: 'absolute',
+                top: 8,
+                right: 8,
+                bgcolor: 'background.paper',
+                zIndex: 1,
+                '&:hover': {
+                  bgcolor: 'background.default',
+                },
+              }}
+            >
+              <Close />
+            </IconButton>
+            <Box
+              component="img"
+              src={selectedImage}
+              alt="Full size screenshot"
+              sx={{
+                maxWidth: '100%',
+                maxHeight: '90vh',
+                objectFit: 'contain',
+              }}
+            />
+          </Box>
+        </Modal>
+      </Container>
+    </Box>
+  )
+}
+
+export default ScreenshotGallery
+
