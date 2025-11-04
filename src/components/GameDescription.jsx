@@ -78,11 +78,12 @@ const GameDescription = () => {
           <Typography
             variant="body1"
             sx={{
-              fontSize: '1.25rem',
+              fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' },
               textAlign: 'center',
-              mb: 6,
+              mb: { xs: 4, md: 6 },
               maxWidth: '800px',
               mx: 'auto',
+              px: { xs: 2, sm: 0 },
               color: 'text.secondary',
             }}
           >

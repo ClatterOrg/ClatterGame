@@ -49,7 +49,7 @@ const theme = createTheme({
     h1: {
       fontFamily: '"Space Grotesk", sans-serif',
       fontWeight: 700,
-      fontSize: '3.5rem',
+      fontSize: { xs: '2rem', sm: '2.5rem', md: '3.5rem' },
       lineHeight: 1.2,
       letterSpacing: '-0.02em',
       color: '#FFFFFF',
@@ -57,7 +57,7 @@ const theme = createTheme({
     h2: {
       fontFamily: '"Space Grotesk", sans-serif',
       fontWeight: 700,
-      fontSize: '2.75rem',
+      fontSize: { xs: '1.75rem', sm: '2.25rem', md: '2.75rem' },
       lineHeight: 1.25,
       letterSpacing: '-0.01em',
       color: '#FFFFFF',
@@ -65,7 +65,7 @@ const theme = createTheme({
     h3: {
       fontFamily: '"Space Grotesk", sans-serif',
       fontWeight: 600,
-      fontSize: '2rem',
+      fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' },
       lineHeight: 1.3,
       letterSpacing: '-0.01em',
       color: '#FFFFFF',
@@ -73,7 +73,7 @@ const theme = createTheme({
     h4: {
       fontFamily: '"Space Grotesk", sans-serif',
       fontWeight: 600,
-      fontSize: '1.75rem',
+      fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' },
       lineHeight: 1.4,
       color: '#FFFFFF',
     },

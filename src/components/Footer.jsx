@@ -13,33 +13,33 @@ const Footer = () => {
       }}
     >
       <Container maxWidth="lg">
-        <Grid container spacing={4}>
+        <Grid container spacing={{ xs: 3, md: 4 }}>
           <Grid item xs={12} md={4}>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" gutterBottom sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>
               Clatter
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.875rem', sm: '0.875rem' } }}>
               An innovative dice-based strategy game
             </Typography>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" gutterBottom sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>
               Links
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <Link href="#" color="text.secondary" underline="hover">
+              <Link href="#" color="text.secondary" underline="hover" sx={{ fontSize: { xs: '0.875rem', sm: '0.875rem' } }}>
                 About
               </Link>
-              <Link href="#" color="text.secondary" underline="hover">
+              <Link href="#" color="text.secondary" underline="hover" sx={{ fontSize: { xs: '0.875rem', sm: '0.875rem' } }}>
                 Privacy Policy
               </Link>
-              <Link href="#" color="text.secondary" underline="hover">
+              <Link href="#" color="text.secondary" underline="hover" sx={{ fontSize: { xs: '0.875rem', sm: '0.875rem' } }}>
                 Terms of Service
               </Link>
             </Box>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" gutterBottom sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>
               Connect
             </Typography>
             <SocialLinks />

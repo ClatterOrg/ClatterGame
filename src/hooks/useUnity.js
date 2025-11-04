@@ -6,11 +6,78 @@ const useUnity = (canvasRef) => {
   const [error, setError] = useState(null)
   const unityInstanceRef = useRef(null)
   const scriptLoadedRef = useRef(false)
+  const containerRef = useRef(null)
+
+  // Handle responsive resize
+  useEffect(() => {
+    if (!canvasRef.current || !unityInstanceRef.current) return
+
+    const canvas = canvasRef.current
+    const container = canvas.parentElement
+    if (!container) return
+
+    const handleResize = () => {
+      if (!unityInstanceRef.current || !canvas) return
+
+      const containerWidth = container.clientWidth
+      const containerHeight = container.clientHeight
+
+      // Set canvas CSS size to match container (display size)
+      canvas.style.width = `${containerWidth}px`
+      canvas.style.height = `${containerHeight}px`
+
+      // Try to notify Unity about the resize
+      // Unity will handle the actual rendering resolution internally
+      try {
+        // Try to send resize message to Unity if available
+        if (unityInstanceRef.current && unityInstanceRef.current.SendMessage) {
+          unityInstanceRef.current.SendMessage('Canvas', 'OnResize', `${containerWidth},${containerHeight}`)
+        }
+      } catch (e) {
+        // Unity might not have this handler, that's okay
+        // The canvas CSS sizing will still work for responsive display
+      }
+
+      // Also try Module.resize if available (Unity WebGL pattern)
+      if (window.Module && typeof window.Module.resize === 'function') {
+        try {
+          window.Module.resize(containerWidth, containerHeight)
+        } catch (e) {
+          // Module.resize not available, that's okay
+        }
+      }
+    }
+
+    // Initial resize
+    handleResize()
+
+    // Listen for resize events
+    window.addEventListener('resize', handleResize)
+    window.addEventListener('orientationchange', handleResize)
+
+    // Use ResizeObserver for more precise container size changes
+    let resizeObserver
+    if (window.ResizeObserver) {
+      resizeObserver = new ResizeObserver(() => {
+        handleResize()
+      })
+      resizeObserver.observe(container)
+    }
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('orientationchange', handleResize)
+      if (resizeObserver) {
+        resizeObserver.disconnect()
+      }
+    }
+  }, [canvasRef, loading])
 
   useEffect(() => {
     if (!canvasRef.current || scriptLoadedRef.current) return
 
     const canvas = canvasRef.current
+    containerRef.current = canvas.parentElement
 
     // Load Unity loader script
     const script = document.createElement('script')
@@ -41,6 +108,15 @@ const useUnity = (canvasRef) => {
             unityInstanceRef.current = unityInstance
             setLoading(false)
             console.log('Unity WebGL loaded!')
+            
+            // Trigger initial resize after load
+            setTimeout(() => {
+              if (canvas && canvas.parentElement) {
+                const container = canvas.parentElement
+                canvas.style.width = `${container.clientWidth}px`
+                canvas.style.height = `${container.clientHeight}px`
+              }
+            }, 100)
           })
           .catch((err) => {
             setError(err)

@@ -65,15 +65,15 @@ const ScreenshotCarousel = ({ videoUrl }) => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        py: 8,
-        px: 2,
+        py: { xs: 2, sm: 4, md: 4 },
+        px: { xs: 1, sm: 2 },
         zIndex: 100,
       }}
     >
       <Box
         sx={{
           position: 'relative',
-          maxWidth: { xs: '90vw', md: '1200px' },
+          maxWidth: { xs: '95vw', sm: '90vw', md: '700px' },
           width: '100%',
         }}
       >
@@ -101,7 +101,7 @@ const ScreenshotCarousel = ({ videoUrl }) => {
           <ChevronLeft
             className="arrow-left"
             sx={{
-              fontSize: { xs: 30, md: 40 },
+              fontSize: { xs: 24, sm: 30, md: 40 },
               color: 'white',
               opacity: 0,
               transition: 'opacity 0.2s',
@@ -133,7 +133,7 @@ const ScreenshotCarousel = ({ videoUrl }) => {
           <ChevronRight
             className="arrow-right"
             sx={{
-              fontSize: { xs: 30, md: 40 },
+              fontSize: { xs: 24, sm: 30, md: 40 },
               color: 'white',
               opacity: 0,
               transition: 'opacity 0.2s',
@@ -181,9 +181,9 @@ const ScreenshotCarousel = ({ videoUrl }) => {
                   <Box
                     sx={{
                       position: 'relative',
-                      width: { xs: '85vw', md: 'auto' },
+                      width: '100%',
                       maxWidth: '100%',
-                      minHeight: { xs: '200px', md: '400px' },
+                      aspectRatio: { xs: '16/9', md: '16/10' },
                       display: 'flex',
                       justifyContent: 'center',
                     }}
@@ -195,11 +195,11 @@ const ScreenshotCarousel = ({ videoUrl }) => {
                       playsInline
                       preload="metadata"
                       sx={{
-                        width: { xs: '85vw', md: 'auto' },
-                        height: { xs: 'auto', md: '400px' },
-                        maxWidth: '100%',
+                        width: '100%',
+                        height: '100%',
                         display: 'block',
                         cursor: 'pointer',
+                        objectFit: 'contain',
                       }}
                       onClick={(e) => {
                         const video = e.currentTarget
@@ -228,10 +228,11 @@ const ScreenshotCarousel = ({ videoUrl }) => {
                     src={currentItem.url}
                     alt={`Gameplay screenshot ${videoUrl ? currentIndex : currentIndex + 1}`}
                     sx={{
-                      height: { xs: 'auto', md: '400px' },
-                      width: { xs: '85vw', md: 'auto' },
+                      width: '100%',
+                      height: 'auto',
                       maxWidth: '100%',
                       display: 'block',
+                      objectFit: 'contain',
                     }}
                   />
                 )}

@@ -22,9 +22,10 @@ const SocialLinks = () => {
       ref={ref}
       sx={{
         display: 'flex',
-        gap: 2,
+        gap: { xs: 1.5, sm: 2 },
         justifyContent: 'center',
         flexWrap: 'wrap',
+        px: { xs: 2, sm: 0 },
       }}
     >
       {socialLinks.map((social, index) => (
@@ -50,8 +51,8 @@ const SocialLinks = () => {
               aria-label={social.name}
               sx={{
                 color: 'text.secondary',
-                width: 56,
-                height: 56,
+                width: { xs: 48, sm: 56 },
+                height: { xs: 48, sm: 56 },
                 border: '2px solid',
                 borderImage: 'linear-gradient(135deg, #FF00FF, #00FFFF) 1',
                 borderRadius: '50%',
@@ -65,7 +66,7 @@ const SocialLinks = () => {
                 },
               }}
             >
-              <social.icon sx={{ fontSize: 28 }} />
+              <social.icon sx={{ fontSize: { xs: 24, sm: 28 } }} />
             </IconButton>
           </Tooltip>
         </motion.div>

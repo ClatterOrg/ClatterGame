@@ -11,7 +11,7 @@ import GameTrailer from './components/GameTrailer'
 import ScreenshotGallery from './components/ScreenshotGallery'
 import SystemRequirements from './components/SystemRequirements'
 import ReviewsSection from './components/ReviewsSection'
-import AchievementsShowcase from './components/AchievementsShowcase'
+// import AchievementsShowcase from './components/AchievementsShowcase'
 import GenreTags from './components/GenreTags'
 import ReleaseInfo from './components/ReleaseInfo'
 import SteamWidget from './components/SteamWidget'
@@ -149,7 +149,7 @@ function App() {
         <ReviewsSection />
         
         {/* Additional Content */}
-        <AchievementsShowcase />
+        {/* <AchievementsShowcase /> */}
         <SteamWidget steamAppId={gameConfig.steamAppId} />
         
         {/* Newsletter */}

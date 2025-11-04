@@ -27,8 +27,9 @@ const HeroSection = ({ videoUrl, steamUrl, price }) => {
       sx={{
         position: 'relative',
         width: '100%',
-        minHeight: { xs: '100vh', md: '100vh' },
-        overflow: 'hidden',
+        minHeight: { xs: 'auto', md: '100vh' },
+        height: { xs: 'auto', md: '100vh' },
+        overflow: { xs: 'visible', md: 'hidden' },
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -46,7 +47,7 @@ const HeroSection = ({ videoUrl, steamUrl, price }) => {
           top: 0,
           left: 0,
           width: '100%',
-          height: '100%',
+          height: { xs: '35vh', sm: '50vh', md: '100%' },
           objectFit: 'cover',
           zIndex: 1,
         }}
@@ -58,21 +59,21 @@ const HeroSection = ({ videoUrl, steamUrl, price }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          background: `
-            linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(10, 0, 20, 0.5) 50%, rgba(0, 0, 0, 0.9) 100%),
-            radial-gradient(circle at 30% 20%, rgba(255, 0, 255, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 70% 80%, rgba(0, 255, 255, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 50% 50%, rgba(157, 0, 255, 0.2) 0%, transparent 60%)
-          `,
-          pointerEvents: 'none',
-          zIndex: 2,
-        }}
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: { xs: '35vh', sm: '50vh', md: '100%' },
+            background: `
+              linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(10, 0, 20, 0.5) 50%, rgba(0, 0, 0, 0.9) 100%),
+              radial-gradient(circle at 30% 20%, rgba(255, 0, 255, 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(0, 255, 255, 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 50% 50%, rgba(157, 0, 255, 0.2) 0%, transparent 60%)
+            `,
+            pointerEvents: 'none',
+            zIndex: 2,
+          }}
       />
 
       {/* Animated Psychedelic Particles/Glow Effect */}
@@ -92,7 +93,7 @@ const HeroSection = ({ videoUrl, steamUrl, price }) => {
           top: 0,
           left: 0,
           width: '100%',
-          height: '100%',
+          height: { xs: '35vh', sm: '50vh', md: '100%' },
           background: `
             radial-gradient(circle at 20% 30%, rgba(255, 0, 255, 0.4) 0%, transparent 40%),
             radial-gradient(circle at 80% 70%, rgba(0, 255, 255, 0.4) 0%, transparent 40%),
@@ -128,7 +129,7 @@ const HeroSection = ({ videoUrl, steamUrl, price }) => {
           }}
           sx={{
             position: 'absolute',
-            width: { xs: '150px', md: '250px' },
+            width: { xs: '80px', sm: '120px', md: '250px' },
             height: 'auto',
             filter: `
               drop-shadow(0 0 20px rgba(255, 0, 255, 0.6))
@@ -139,7 +140,7 @@ const HeroSection = ({ videoUrl, steamUrl, price }) => {
             pointerEvents: 'none',
             zIndex: 5,
             top: index === 1 ? '10%' : index === 2 ? '60%' : '30%',
-            left: index === 1 ? '5%' : index === 2 ? '80%' : '70%',
+            left: index === 1 ? { xs: '2%', md: '5%' } : index === 2 ? { xs: '75%', md: '80%' } : { xs: '65%', md: '70%' },
           }}
         />
       ))}
@@ -149,11 +150,15 @@ const HeroSection = ({ videoUrl, steamUrl, price }) => {
         id="unity-header"
         sx={{
           position: 'absolute',
-          top: 0,
+          top: { xs: 0, md: '-40px' },
           left: 0,
           width: '100%',
-          height: '100%',
+          height: { xs: '35vh', sm: '50vh', md: '100%' },
           zIndex: 5,
+          overflow: 'hidden',
+          // Ensure container is properly sized on all devices
+          minWidth: 0,
+          minHeight: 0,
         }}
       >
         {loading && <LoadingStates />}
@@ -178,10 +183,17 @@ const HeroSection = ({ videoUrl, steamUrl, price }) => {
             sx={{
               width: '100%',
               height: '100%',
+              maxWidth: '100%',
+              maxHeight: '100%',
               backgroundColor: 'transparent',
               display: 'block',
               zIndex: 5,
               pointerEvents: 'auto',
+              objectFit: 'contain',
+              // Ensure canvas scales properly on mobile
+              '@media (max-width: 600px)': {
+                objectFit: 'cover',
+              },
             }}
           />
         </Fade>
@@ -194,11 +206,16 @@ const HeroSection = ({ videoUrl, steamUrl, price }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.5 }}
         sx={{
-          position: 'absolute',
-          top: { xs: '180px', md: '250px' },
+          position: { xs: 'relative', md: 'absolute' },
+          top: { xs: 'auto', md: '280px' },
           left: 0,
           width: '100%',
-          zIndex: 100,
+          zIndex: { xs: 10, md: 100 },
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          mt: { xs: 'calc(35vh - 120px)', sm: 'calc(50vh - 100px)', md: 0 },
+          mb: { xs: 2, md: 0 },
         }}
       >
         <ScreenshotCarousel videoUrl={videoUrl} />
@@ -208,34 +225,43 @@ const HeroSection = ({ videoUrl, steamUrl, price }) => {
       <Box
         ref={ctaRef}
         sx={{
-          position: 'absolute',
-          bottom: { xs: 30, md: 50 },
+          position: { xs: 'relative', md: 'absolute' },
+          bottom: { xs: 'auto', md: 50 },
+          top: { xs: 'auto', md: 'auto' },
           left: 0,
           right: 0,
           width: '100%',
-          zIndex: 101,
+          zIndex: { xs: 101, md: 99 },
           display: 'flex',
           justifyContent: 'center',
+          px: { xs: 2, sm: 0 },
+          mt: { xs: 2, md: 0 },
+          mb: { xs: 3, md: 0 },
+          // Ensure CTA is below carousel on desktop
+          '@media (min-width: 900px)': {
+            top: 'calc(250px + 600px)',
+            bottom: 'auto',
+          },
         }}
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={ctaInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.8 }}
+          style={{ width: '100%', maxWidth: '500px' }}
         >
           <Stack
             direction={{ xs: 'column', sm: 'row' }}
             spacing={2}
             justifyContent="center"
-            alignItems="center"
-            sx={{
-              px: { xs: 2, sm: 0 },
-            }}
+            alignItems="stretch"
+            sx={{ width: '100%' }}
           >
             {steamUrl && (
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                style={{ width: '100%' }}
               >
                 <Button
                   variant="contained"
@@ -244,12 +270,12 @@ const HeroSection = ({ videoUrl, steamUrl, price }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   startIcon={<AddShoppingCart />}
+                  fullWidth
                   sx={{
-                    px: { xs: 4, sm: 5 },
-                    py: 1.75,
-                    fontSize: { xs: '1rem', sm: '1.1rem' },
+                    py: { xs: 1.5, sm: 1.75 },
+                    fontSize: { xs: '0.95rem', sm: '1.1rem' },
                     fontWeight: 700,
-                    minWidth: { xs: '180px', sm: '200px' },
+                    minHeight: { xs: '48px', sm: '56px' },
                   }}
                 >
                   Buy on Steam
@@ -260,6 +286,7 @@ const HeroSection = ({ videoUrl, steamUrl, price }) => {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                style={{ width: '100%' }}
               >
                 <Button
                   variant="outlined"
@@ -268,12 +295,12 @@ const HeroSection = ({ videoUrl, steamUrl, price }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   startIcon={<PlayArrow />}
+                  fullWidth
                   sx={{
-                    px: { xs: 4, sm: 5 },
-                    py: 1.75,
-                    fontSize: { xs: '1rem', sm: '1.1rem' },
+                    py: { xs: 1.5, sm: 1.75 },
+                    fontSize: { xs: '0.95rem', sm: '1.1rem' },
                     fontWeight: 700,
-                    minWidth: { xs: '180px', sm: '200px' },
+                    minHeight: { xs: '48px', sm: '56px' },
                   }}
                 >
                   Wishlist

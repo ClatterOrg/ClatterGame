@@ -28,7 +28,8 @@ const ReleaseInfo = ({ releaseDate, isAvailable }) => {
               flexDirection: { xs: 'column', sm: 'row' },
               alignItems: 'center',
               justifyContent: 'center',
-              gap: 2,
+              gap: { xs: 1.5, sm: 2 },
+              px: { xs: 2, sm: 0 },
             }}
           >
             {releaseDate && (
@@ -42,7 +43,7 @@ const ReleaseInfo = ({ releaseDate, isAvailable }) => {
             <Chip
               label={isAvailable ? 'Available Now' : 'Coming Soon'}
               color={isAvailable ? 'success' : 'warning'}
-              sx={{ fontSize: '0.9rem', height: 32 }}
+              sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' }, height: { xs: 28, sm: 32 } }}
             />
           </Box>
         </motion.div>

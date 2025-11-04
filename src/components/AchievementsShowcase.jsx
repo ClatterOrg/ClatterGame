@@ -40,8 +40,8 @@ const AchievementsShowcase = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 4 }}>
-            <EmojiEvents sx={{ fontSize: 40, mr: 2, color: 'primary.main' }} />
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: { xs: 3, md: 4 }, px: { xs: 2, sm: 0 } }}>
+            <EmojiEvents sx={{ fontSize: { xs: 32, md: 40 }, mr: { xs: 1.5, md: 2 }, color: 'primary.main' }} />
             <Typography variant="h2" component="h2">
               Achievements
             </Typography>

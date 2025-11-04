@@ -25,10 +25,11 @@ const GenreTags = () => {
         >
           <Stack
             direction="row"
-            spacing={1}
+            spacing={{ xs: 0.75, sm: 1 }}
             justifyContent="center"
             flexWrap="wrap"
             useFlexGap
+            sx={{ px: { xs: 2, sm: 0 } }}
           >
             {genres.map((genre, index) => (
               <motion.div
@@ -40,8 +41,8 @@ const GenreTags = () => {
                 <Chip
                   label={genre}
                   sx={{
-                    fontSize: '0.9rem',
-                    height: 32,
+                    fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                    height: { xs: 28, sm: 32 },
                     bgcolor: 'primary.main',
                     color: 'white',
                     '&:hover': {

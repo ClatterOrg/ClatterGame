@@ -36,14 +36,28 @@ const SteamWidget = ({ steamAppId }) => {
               alignItems: 'center',
             }}
           >
-            <iframe
-              src={`https://store.steampowered.com/widget/${steamAppId}/`}
-              frameBorder="0"
-              width="100%"
-              height="190"
-              title="Steam Store Widget"
-              style={{ maxWidth: '646px' }}
-            />
+            <Box
+              sx={{
+                width: '100%',
+                maxWidth: '646px',
+                position: 'relative',
+                overflow: 'hidden',
+                iframe: {
+                  width: '100%',
+                  height: { xs: '190px', sm: '190px' },
+                  border: 'none',
+                },
+              }}
+            >
+              <iframe
+                src={`https://store.steampowered.com/widget/${steamAppId}/`}
+                frameBorder="0"
+                width="100%"
+                height="190"
+                title="Steam Store Widget"
+                style={{ maxWidth: '100%' }}
+              />
+            </Box>
           </Box>
         </motion.div>
       </Container>

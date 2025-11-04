@@ -70,13 +70,23 @@ const ScreenshotGallery = () => {
             variant="h2"
             component="h2"
             gutterBottom
-            sx={{ textAlign: 'center', mb: 6 }}
+            sx={{ 
+              textAlign: 'center', 
+              mb: { xs: 4, md: 6 },
+              px: { xs: 2, sm: 0 },
+            }}
           >
             Screenshot Gallery
           </Typography>
         </motion.div>
 
-        <ImageList variant="masonry" cols={3} gap={8}>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+            gap: { xs: 4, sm: 4, md: 4 },
+          }}
+        >
           {screenshots.map((screenshot, index) => (
             <motion.div
               key={index}
@@ -84,28 +94,30 @@ const ScreenshotGallery = () => {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: index * 0.1 }}
             >
-              <ImageListItem>
-                <Box
-                  component="img"
-                  src={screenshot}
-                  alt={`Gameplay screenshot ${index + 1}`}
-                  loading="lazy"
-                  onClick={() => handleOpen(screenshot)}
-                  sx={{
-                    width: '100%',
-                    height: 'auto',
-                    cursor: 'pointer',
-                    borderRadius: 2,
-                    transition: 'transform 0.3s',
-                    '&:hover': {
-                      transform: 'scale(1.05)',
-                    },
-                  }}
-                />
-              </ImageListItem>
+              <Box
+                component="img"
+                src={screenshot}
+                alt={`Gameplay screenshot ${index + 1}`}
+                loading="lazy"
+                onClick={() => handleOpen(screenshot)}
+                sx={{
+                  width: '100%',
+                  height: { xs: 'auto', md: '300px' },
+                  objectFit: 'cover',
+                  cursor: 'pointer',
+                  borderRadius: 2,
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                  display: 'block',
+                  '&:hover': {
+                    transform: 'scale(1.03)',
+                    boxShadow: '0 8px 24px rgba(255, 0, 255, 0.4)',
+                  },
+                }}
+              />
             </motion.div>
           ))}
-        </ImageList>
+        </Box>
 
         <Modal
           open={!!selectedImage}
