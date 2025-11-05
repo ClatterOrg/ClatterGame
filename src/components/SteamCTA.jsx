@@ -93,15 +93,6 @@ const SteamCTA = ({ steamUrl, price }) => {
               </Typography>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <Typography variant="h5" color="text.secondary" gutterBottom sx={{ mb: 4 }}>
-                {price && `Available for ${price}`}
-              </Typography>
-            </motion.div>
-            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.6 }}

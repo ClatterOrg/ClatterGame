@@ -90,7 +90,7 @@ function App() {
     videoUrl: import.meta.env.VITE_TRAILER_URL || getAssetPath('assets/video/test.mov'),
     price: import.meta.env.VITE_GAME_PRICE || '$9.99',
     releaseDate: import.meta.env.VITE_RELEASE_DATE || 'Jan 1 2026',
-    isAvailable: import.meta.env.VITE_IS_AVAILABLE === 'true' || true,
+    isAvailable: import.meta.env.VITE_IS_AVAILABLE === 'false' || true,
   }
 
   // Handle routing for static pages
@@ -147,11 +147,11 @@ function App() {
               'An innovative dice-based strategy game that challenges players to think strategically while managing chance.',
             applicationCategory: 'Game',
             operatingSystem: 'Windows',
-            offers: {
-              '@type': 'Offer',
-              price: gameConfig.price,
-              priceCurrency: 'USD',
-            },
+            // offers: {
+            //   '@type': 'Offer',
+            //   price: gameConfig.price,
+            //   priceCurrency: 'USD',
+            // },
             aggregateRating: {
               '@type': 'AggregateRating',
               ratingValue: '4.5',
