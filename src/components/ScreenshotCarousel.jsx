@@ -26,13 +26,10 @@ const ScreenshotCarousel = ({ videoUrl }) => {
   const carouselItems = []
   if (videoUrl) {
     carouselItems.push({ type: 'video', url: videoUrl })
-    console.log('Video added to carousel:', videoUrl)
   }
   screenshots.forEach((screenshot) => {
     carouselItems.push({ type: 'image', url: screenshot })
   })
-  
-  console.log('Carousel items:', carouselItems.length, 'Current index:', currentIndex)
 
   const handlePrevious = () => {
     setCurrentIndex((prev) => (prev - 1 + carouselItems.length) % carouselItems.length)
@@ -50,11 +47,8 @@ const ScreenshotCarousel = ({ videoUrl }) => {
   
   // Safety check
   if (!currentItem) {
-    console.error('No current item at index:', currentIndex, 'Items:', carouselItems)
     return null
   }
-  
-  console.log('Rendering carousel item:', currentItem.type, currentItem.url)
 
   return (
     <Box
@@ -204,19 +198,15 @@ const ScreenshotCarousel = ({ videoUrl }) => {
                       onClick={(e) => {
                         const video = e.currentTarget
                         if (video.paused) {
-                          video.play().catch((err) => console.error('Play error:', err))
+                          video.play().catch(() => {
+                            // Video play failed - silently handle
+                          })
                         } else {
                           video.pause()
                         }
                       }}
                       onError={(e) => {
-                        console.error('Video error:', e)
-                        console.error('Video URL:', currentItem.url)
-                        const video = e.currentTarget
-                        console.error('Video error details:', video.error)
-                      }}
-                      onLoadedData={() => {
-                        console.log('Video loaded:', currentItem.url)
+                        // Video failed to load - silently handle
                       }}
                     >
                       Your browser does not support the video tag.
@@ -227,6 +217,7 @@ const ScreenshotCarousel = ({ videoUrl }) => {
                     component="img"
                     src={currentItem.url}
                     alt={`Gameplay screenshot ${videoUrl ? currentIndex : currentIndex + 1}`}
+                    loading={currentIndex === 0 ? "eager" : "lazy"}
                     sx={{
                       width: '100%',
                       height: 'auto',

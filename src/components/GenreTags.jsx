@@ -43,10 +43,12 @@ const GenreTags = () => {
                   sx={{
                     fontSize: { xs: '0.8rem', sm: '0.9rem' },
                     height: { xs: 28, sm: 32 },
-                    bgcolor: 'primary.main',
+                    bgcolor: 'transparent',
                     color: 'white',
+                    border: '1px solid rgba(255, 255, 255, 0.3)',
                     '&:hover': {
-                      bgcolor: 'primary.dark',
+                      bgcolor: 'rgba(255, 255, 255, 0.1)',
+                      border: '1px solid rgba(255, 255, 255, 0.5)',
                     },
                   }}
                 />

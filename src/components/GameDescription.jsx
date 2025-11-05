@@ -93,10 +93,23 @@ const GameDescription = () => {
           </Typography>
         </motion.div>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={4} sx={{ display: 'flex', flexWrap: 'wrap' }}>
           {features.map((feature, index) => (
-            <Grid item xs={12} md={4} key={index}>
+            <Grid 
+              item 
+              xs={12} 
+              md={4} 
+              key={index}
+              sx={{
+                display: 'flex',
+                width: { xs: '100%', md: 'calc((100% - 64px) / 3)' },
+                maxWidth: { xs: '100%', md: 'calc((100% - 64px) / 3)' },
+                minWidth: 0,
+                flex: { xs: '0 0 100%', md: '0 0 calc((100% - 64px) / 3)' },
+              }}
+            >
               <motion.div
+                style={{ width: '100%', display: 'flex' }}
                 initial={{ opacity: 0, y: 50, scale: 0.9 }}
                 animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
                 transition={{
@@ -108,7 +121,13 @@ const GameDescription = () => {
               >
                 <Card
                   sx={{
+                    width: '100%',
+                    maxWidth: '100%',
                     height: '100%',
+                    minWidth: 0,
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
                     background: 'linear-gradient(135deg, rgba(157, 0, 255, 0.2) 0%, rgba(255, 0, 255, 0.15) 50%, rgba(0, 255, 255, 0.2) 100%)',
                     backdropFilter: 'blur(20px)',
                     border: '2px solid',
@@ -122,7 +141,7 @@ const GameDescription = () => {
                     },
                   }}
                 >
-                  <CardContent sx={{ p: 4 }}>
+                  <CardContent sx={{ p: 4, flex: 1, display: 'flex', flexDirection: 'column' }}>
                     <Typography
                       variant="h5"
                       component="h3"
@@ -136,7 +155,7 @@ const GameDescription = () => {
                     >
                       {feature.title}
                     </Typography>
-                    <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
+                    <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8, flex: 1 }}>
                       {feature.description}
                     </Typography>
                   </CardContent>

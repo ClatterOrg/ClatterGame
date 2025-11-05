@@ -15,8 +15,6 @@ const HeroSection = ({ videoUrl, steamUrl, price }) => {
     threshold: 0.1,
     triggerOnce: true,
   })
-  
-  console.log('HeroSection received videoUrl:', videoUrl)
 
   return (
     <Box
@@ -34,11 +32,13 @@ const HeroSection = ({ videoUrl, steamUrl, price }) => {
         flexDirection: 'column',
       }}
     >
-      {/* Animated Background Image */}
+      {/* Animated Background Image - LCP Image */}
       <Box
         component={motion.img}
         src={getAssetPath('assets/images/background-die-grid.png')}
         alt="Background"
+        fetchPriority="high"
+        loading="eager"
         initial={{ scale: 1.1, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.5, ease: 'easeOut' }}

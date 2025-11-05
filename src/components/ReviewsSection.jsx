@@ -75,17 +75,34 @@ const ReviewsSection = () => {
           </Typography>
         </motion.div>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={4} sx={{ display: 'flex', flexWrap: 'wrap' }}>
           {reviews.map((review, index) => (
-            <Grid item xs={12} md={4} key={index}>
+            <Grid 
+              item 
+              xs={12} 
+              md={4} 
+              key={index}
+              sx={{
+                display: 'flex',
+                width: { xs: '100%', md: 'calc((100% - 64px) / 3)' },
+                maxWidth: { xs: '100%', md: 'calc((100% - 64px) / 3)' },
+                minWidth: 0,
+                flex: { xs: '0 0 100%', md: '0 0 calc((100% - 64px) / 3)' },
+              }}
+            >
               <motion.div
+                style={{ width: '100%', display: 'flex' }}
                 initial={{ opacity: 0, y: 30 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <Card
                   sx={{
+                    width: '100%',
+                    maxWidth: '100%',
                     height: '100%',
+                    minWidth: 0,
+                    flex: 1,
                     bgcolor: 'background.paper',
                     display: 'flex',
                     flexDirection: 'column',

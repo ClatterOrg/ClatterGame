@@ -90,7 +90,7 @@ const useUnity = (canvasRef) => {
         const handleWheel = (e) => {
           window.scrollBy({ top: e.deltaY, behavior: 'auto' })
         }
-        canvas.addEventListener('wheel', handleWheel)
+        canvas.addEventListener('wheel', handleWheel, { passive: true })
 
         // Create Unity instance
         window.createUnityInstance(canvas, {
@@ -107,7 +107,7 @@ const useUnity = (canvasRef) => {
           .then((unityInstance) => {
             unityInstanceRef.current = unityInstance
             setLoading(false)
-            console.log('Unity WebGL loaded!')
+            // Unity WebGL loaded successfully
             
             // Trigger initial resize after load
             setTimeout(() => {

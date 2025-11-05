@@ -15,7 +15,6 @@ const NewsletterSignup = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     // TODO: Implement newsletter signup logic
-    console.log('Newsletter signup:', email)
     setSubmitted(true)
     setTimeout(() => {
       setSubmitted(false)

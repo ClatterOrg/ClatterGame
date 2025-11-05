@@ -27,13 +27,10 @@ const Footer = () => {
               Links
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <Link href="#" color="text.secondary" underline="hover" sx={{ fontSize: { xs: '0.875rem', sm: '0.875rem' } }}>
-                About
-              </Link>
-              <Link href="#" color="text.secondary" underline="hover" sx={{ fontSize: { xs: '0.875rem', sm: '0.875rem' } }}>
+              <Link href="/privacy" color="text.secondary" underline="hover" sx={{ fontSize: { xs: '0.875rem', sm: '0.875rem' } }}>
                 Privacy Policy
               </Link>
-              <Link href="#" color="text.secondary" underline="hover" sx={{ fontSize: { xs: '0.875rem', sm: '0.875rem' } }}>
+              <Link href="/terms" color="text.secondary" underline="hover" sx={{ fontSize: { xs: '0.875rem', sm: '0.875rem' } }}>
                 Terms of Service
               </Link>
             </Box>
