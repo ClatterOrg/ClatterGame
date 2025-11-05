@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/ClatterGame/', // GitHub Pages base path
+  base: './', // Relative paths for custom domain (root) and GitHub Pages compatibility
   publicDir: 'public',
   build: {
     outDir: 'dist',
