@@ -2,7 +2,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { Box, Container } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import theme from './theme/theme'
 import { getAssetPath } from './utils/paths'
 import HeroSection from './components/HeroSection'
@@ -19,13 +19,16 @@ import SteamCTA from './components/SteamCTA'
 import NewsletterSignup from './components/NewsletterSignup'
 import SocialLinks from './components/SocialLinks'
 import Footer from './components/Footer'
+import TermsOfService from './components/TermsOfService'
+import PrivacyPolicy from './components/PrivacyPolicy'
 
 // Get Google Analytics ID
 const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID
 
 function App() {
+  const [currentPath, setCurrentPath] = useState(window.location.pathname)
+
   useEffect(() => {
-    console.log('App component mounted')
     // Initialize and track page view with Google Analytics
     if (GA_MEASUREMENT_ID) {
       import('react-ga4')
@@ -41,6 +44,43 @@ function App() {
           console.warn('Failed to load react-ga4:', error)
         })
     }
+
+    // Listen for navigation changes
+    const handleLocationChange = () => {
+      setCurrentPath(window.location.pathname)
+      if (GA_MEASUREMENT_ID) {
+        import('react-ga4')
+          .then((ReactGA) => {
+            ReactGA.default.send({ hitType: 'pageview', page: window.location.pathname })
+          })
+          .catch(() => {})
+      }
+    }
+
+    // Intercept link clicks for SPA navigation
+    const handleLinkClick = (e) => {
+      const link = e.target.closest('a')
+      if (link && link.href) {
+        const url = new URL(link.href)
+        // Only intercept internal links (same origin)
+        if (url.origin === window.location.origin) {
+          const path = url.pathname
+          // Only intercept /terms and /privacy links
+          if (path === '/terms' || path === '/privacy' || path === '/' || path === '') {
+            e.preventDefault()
+            window.history.pushState({}, '', path)
+            handleLocationChange()
+          }
+        }
+      }
+    }
+
+    window.addEventListener('popstate', handleLocationChange)
+    document.addEventListener('click', handleLinkClick)
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange)
+      document.removeEventListener('click', handleLinkClick)
+    }
   }, [])
 
   // Game configuration - can be overridden by environment variables
@@ -49,8 +89,29 @@ function App() {
     steamAppId: import.meta.env.VITE_STEAM_APP_ID || 'YOUR_APP_ID',
     videoUrl: import.meta.env.VITE_TRAILER_URL || getAssetPath('assets/video/test.mov'),
     price: import.meta.env.VITE_GAME_PRICE || '$9.99',
-    releaseDate: import.meta.env.VITE_RELEASE_DATE || '2024',
+    releaseDate: import.meta.env.VITE_RELEASE_DATE || 'Jan 1 2026',
     isAvailable: import.meta.env.VITE_IS_AVAILABLE === 'true' || true,
+  }
+
+  // Handle routing for static pages
+  const path = currentPath.replace(/\/$/, '') || '/'
+  
+  if (path === '/terms' || path.endsWith('/terms')) {
+    return (
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <TermsOfService />
+      </ThemeProvider>
+    )
+  }
+
+  if (path === '/privacy' || path.endsWith('/privacy')) {
+    return (
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <PrivacyPolicy />
+      </ThemeProvider>
+    )
   }
 
   return (

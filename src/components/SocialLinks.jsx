@@ -44,30 +44,45 @@ const SocialLinks = () => {
           whileTap={{ scale: 0.9 }}
         >
           <Tooltip title={social.name} arrow>
-            <IconButton
-              href={social.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={social.name}
+            <Box
               sx={{
-                color: 'text.secondary',
+                position: 'relative',
                 width: { xs: 48, sm: 56 },
                 height: { xs: 48, sm: 56 },
-                border: '2px solid',
-                borderImage: 'linear-gradient(135deg, #FF00FF, #00FFFF) 1',
                 borderRadius: '50%',
+                background: 'linear-gradient(135deg, #FF00FF, #00FFFF)',
+                padding: '2px',
                 transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                boxShadow: '0 0 15px rgba(255, 0, 255, 0.4), inset 0 0 10px rgba(0, 255, 255, 0.1)',
+                boxShadow: '0 0 15px rgba(255, 0, 255, 0.4)',
                 '&:hover': {
-                  color: '#00FFFF',
-                  borderImage: 'linear-gradient(135deg, #00FFFF, #FF00FF) 1',
-                  boxShadow: '0 0 30px rgba(255, 0, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.6), inset 0 0 20px rgba(157, 0, 255, 0.3)',
-                  background: 'rgba(0, 255, 255, 0.15)',
+                  boxShadow: '0 0 30px rgba(255, 0, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.6)',
+                  background: 'linear-gradient(135deg, #00FFFF, #FF00FF)',
                 },
               }}
             >
-              <social.icon sx={{ fontSize: { xs: 24, sm: 28 } }} />
-            </IconButton>
+              <IconButton
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.name}
+                sx={{
+                  color: 'text.secondary',
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '50%',
+                  background: 'rgba(0, 0, 0, 0.8)',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  boxShadow: 'inset 0 0 10px rgba(0, 255, 255, 0.1)',
+                  '&:hover': {
+                    color: '#00FFFF',
+                    background: 'rgba(0, 255, 255, 0.15)',
+                    boxShadow: 'inset 0 0 20px rgba(157, 0, 255, 0.3)',
+                  },
+                }}
+              >
+                <social.icon sx={{ fontSize: { xs: 24, sm: 28 } }} />
+              </IconButton>
+            </Box>
           </Tooltip>
         </motion.div>
       ))}
