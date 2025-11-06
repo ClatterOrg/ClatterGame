@@ -24,9 +24,10 @@ const ScreenshotCarousel = ({ videoUrl }) => {
 
   // Build carousel items: video first (if provided), then screenshots
   const carouselItems = []
-  if (videoUrl) {
-    carouselItems.push({ type: 'video', url: videoUrl })
-  }
+  // Temporarily hide the trailer video in the carousel
+  // if (videoUrl) {
+  //   carouselItems.push({ type: 'video', url: videoUrl })
+  // }
   screenshots.forEach((screenshot) => {
     carouselItems.push({ type: 'image', url: screenshot })
   })
